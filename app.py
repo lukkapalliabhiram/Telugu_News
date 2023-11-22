@@ -106,6 +106,9 @@ def main():
         .main {
             background-color: #F5F5F5;
         }
+        .stTextInput > div > div > input {
+            border: 2px solid black;
+        }
         .stButton > button {
             color: white;
             background-color: #4CAF50;
@@ -117,11 +120,34 @@ def main():
         .stExpander > label {
             font-size: 18px;
             font-weight: bold;
+            color: #FF6347; /* Tomato color for the expander title */
+        }
+        .highlight {
+            background-color: yellow;
         }
         .article-body {
             white-space: pre-line;
+            font-family: sans-serif;
+        }
+        .instructions {
+            background-color: #DDDDDD;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
         }
         </style>
+    """, unsafe_allow_html=True)
+
+    # Instructions for using the app
+    st.markdown("""
+        <div class='instructions'>
+            <strong>Instructions:</strong>
+            <ol>
+                <li>Enter a Telugu news article in the text area below.</li>
+                <li>Press the 'Classify and Recommend' button to categorize the article and see related recommendations.</li>
+                <li>Click on the expanders to view the details of each recommended article.</li>
+            </ol>
+        </div>
     """, unsafe_allow_html=True)
 
     # User input
@@ -130,9 +156,9 @@ def main():
     if st.button("Classify and Recommend"):
         if user_input:
             predicted_class, recommendations, scores = classify_and_recommend(user_input, clf, count_vec, telugu_news_df)
-            st.write(f"Predicted Class: {inv_topic_dict[predicted_class]}")
+            st.markdown(f"<span class='highlight'>Predicted Class:</span> {inv_topic_dict[predicted_class]}", unsafe_allow_html=True)
 
-            st.write("Recommended Articles:")
+            st.markdown("### Recommended Articles:")
             for rec, score in zip(recommendations, scores):
                 matched_articles = telugu_news_df[telugu_news_df['body_processed'] == rec]
                 if not matched_articles.empty:
