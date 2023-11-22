@@ -127,7 +127,7 @@ def main():
     # User input
     user_input = st.text_area("Enter a Telugu News Article:")
 
-    if st.button("Classify"):
+    if st.button("Classify and Recommend"):
         if user_input:
             predicted_class, recommendations, scores = classify_and_recommend(user_input, clf, count_vec, telugu_news_df)
             st.write(f"Predicted Class: {inv_topic_dict[predicted_class]}")
