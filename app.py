@@ -117,6 +117,9 @@ def main():
             padding: 10px 24px;
             margin: 10px;
         }
+        textarea {
+            border: 2px solid black !important;
+        }
         .stExpander > label {
             font-size: 18px;
             font-weight: bold;
